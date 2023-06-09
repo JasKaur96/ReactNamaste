@@ -1,40 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-const parent = React.createElement(
-  "div",
-  {
-    id: "parent",
-    xyz: "abc",
-  },
-  React.createElement(
-    "div",
-    {
-      id: "child",
-    },
-    [
-      React.createElement(
-        "h1",
-        {
-          id: "heading",
-          xyz: "abc",
-        },
-        "Hello World !"
-      ),
-      React.createElement(
-        "h1",
-        {
-          id: "heading",
-          xyz: "abc",
-        },
-        "This is Namaste React."
-      ),
-    ]
-  )
+//React Element
+//JSX (transpiled begore it reaches the JS) - Parcel - Babel
+// JSX => Babel transpiles to React.createElement => ReactElement-JS Object => HTMLElement(render)
+const heading = (
+  <h1 className="head" tabIndex="2">
+    Namaste React
+  </h1>
 );
-
-console.log(parent);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(parent);
+root.render(heading);
