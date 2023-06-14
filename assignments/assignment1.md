@@ -32,5 +32,5 @@
 
 ## 8. What are async and differ?
 
--- Async allows your script to run as soon as it's loaded, without blocking other elements on the page. 
+-- Async allows your script to run as soon as it's loaded, without blocking other elements on the page.
 -- Defer means your script will only execute after the page has finished loading
