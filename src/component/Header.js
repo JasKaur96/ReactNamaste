@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import { Link } from "react-router-dom";
 import { LOGO_URL } from "../utils/constants";
+import useOnline from "../utils/useOnline";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
-
-  useEffect(() => {}, [btnName]);
+  const isOnline = useOnline();
 
   return (
     <div className="header">
@@ -27,6 +27,10 @@ const Header = () => {
           <li>
             <Link to="/cart">Cart</Link>
           </li>
+          <li>
+            <Link to="/instamart">InstaMart</Link>
+          </li>
+          {/* <h4>{isOnline ? "Online" : "Offline"}</h4> */}
           <button
             className="login"
             onClick={() => {

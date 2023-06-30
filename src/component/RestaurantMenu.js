@@ -1,31 +1,56 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { CDN_URL } from "../utils/constants";
+import useRestaurant from "../utils/useRestaurant";
 import Shimmer from "./Shimmer";
 
 export const RestaurantMenu = () => {
-  const [menuData, setMenuData] = useState([]);
-  useEffect(() => {
-    fetchMenu();
-  }, []);
-  const fetchMenu = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.9121181&lng=77.6445548&restaurantId=548400&submitAction=ENTER"
-    );
-    const json = await data.json();
+  const { resId } = useParams();
 
-    console.log(json);
-    setMenuData(json);
-  };
+  const restaurant = useRestaurant(resId);
 
-  if (menuData === []) return <Shimmer />;
+  if (restaurant === []) return <Shimmer />;
+
+  // const { costForTwoMessage } =
+  //   restaurant?.cards[0]?.card?.card?.info;
+  // console.log(
+  //   restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+  //     .card
+  // );
+  const itemCards =
+    restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+      ?.card.itemCards;
+
+  // restaurant?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card
+  //   ?.card;
+
+  console.log(itemCards);
 
   return (
     <div className="menu">
-      <h1>Name os Restaurent</h1>
-      <h2>Menu</h2>
-      <ul>
-        <li>Biryani</li>
-        <li>Khichadi</li>
-      </ul>
+      <div>
+        <h1>Restaurant id: {resId}</h1>
+        <h2>{restaurant?.cards[0]?.card?.card?.info.name}</h2>
+        <h3>
+          {restaurant?.cards[0]?.card?.card?.info.cuisines.join(", ")} -{" "}
+          {restaurant?.cards[0]?.card?.card?.info.costForTwoMessage}
+        </h3>
+      </div>
+      <div>
+        <h1>Menu</h1>
+        <ul>
+          {itemCards?.map((item) => {
+            console.log(item?.card.info.name);
+            return (
+              <li key={item.card.info.id}>
+                {item.card.info.name} - {"RS."}
+                {item.card.info.price / 100 ||
+                  item.card.info.defaultPrice / 100}{" "}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </div>
   );
 };

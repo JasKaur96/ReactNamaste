@@ -28,7 +28,8 @@ class About extends Component {
       <>
         <div>About</div>
         <div>This is a Food Ordering App.</div>
-        <UserClass name={name} location={location} avatar_url={avatar_url} />
+        <User name={name} location={location} />
+        {/* <UserClass name={name} location={location} avatar_url={avatar_url} /> */}
       </>
     );
   }
